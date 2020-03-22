@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId + "\n");
-  console.log("Welcome to Employee Manager!")
+  console.log("WELCOME TO EMPLOYEE MANAGER!")
   start();
 });
 
@@ -70,7 +70,63 @@ function start() {
 
 // Creating functions for each action option
 function addEmployee() {
-    //
+    inquirer.prompt([
+        {
+            name: "first-name",
+            type: "input",
+            message: "What is the employee's first name?"
+        },
+        {
+            name: "last-name",
+            type: "input",
+            message: "What is the employee's last name?"
+        },
+        {
+            name: "department",
+            type: "input",
+            message: "What department does the employee work in?"
+        },
+        {
+            name: "title",
+            type: "input",
+            message: "What is the employee's title?"
+        },
+        {
+            name: "salary",
+            type: "input",
+            message: "What is the employee's yearly salary?"
+        }
+    ])
+    .then(function(answer) {
+        connection.query(
+            "INSERT INTO employee SET ?",
+            {
+              first_name: answer["first-name"],
+              last_name: answer["last-name"],
+            },
+            function(err) {
+              if (err) throw err;
+            });
+        connection.query(
+            "INSERT INTO department SET ?",
+            {
+                department_name: answer["department"],
+            },
+            function(err) {
+                if (err) throw err;
+            });
+        connection.query(
+            "INSERT INTO role SET ?",
+            {
+                title: answer["title"],
+                salary: answer["salary"],
+            },
+            function(err) {
+                if (err) throw err;
+                console.log("Your employee was created successfully!");
+                start();
+            });
+    });
 };
 
 function addDepartment() {
