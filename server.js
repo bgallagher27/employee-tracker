@@ -156,12 +156,12 @@ function addRole() {
         {
             name: "new-title",
             type: "input",
-            message: "What is the employee's first name?"
+            message: "What is the new role?"
         },
         {
             name: "new-salary",
             type: "input",
-            message: "What is the employee's last name?"
+            message: "What is the new role's salary?"
         },
     ])
     .then(function(answer) {
