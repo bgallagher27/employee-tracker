@@ -181,20 +181,29 @@ function addRole() {
 
 
 function showEmployees() {
-    //
+    let employeeTable = "SELECT employee.id, employee.first_name, employee.last_name FROM employee";
+    connection.query(employeeTable, function(err, res) {
+        console.table(res);
+    });
 };
 
 function showDepartments() {
-    //
+    let departmentTable = "SELECT * FROM department";
+    connection.query(departmentTable, function(err, res) {
+        console.table(res);
+    });
 };
 
 function showRoles() {
-    //
+    let roleTable = "SELECT role.id, role.title, role.salary FROM role";
+    connection.query(roleTable, function(err, res) {
+        console.table(res);
+    });
 };
 
 function showAll() {
-    let employeeTable = "SELECT employee.id, employee.first_name, employee.last_name, department.department_name, role.title, role.salary FROM employee LEFT OUTER JOIN department ON employee.id = department.id LEFT OUTER JOIN role ON employee.id = role.id";
-    connection.query(employeeTable, function(err, res) {
+    let allTable = "SELECT employee.id, employee.first_name, employee.last_name, department.department_name, role.title, role.salary FROM employee LEFT OUTER JOIN department ON employee.id = department.id LEFT OUTER JOIN role ON employee.id = role.id";
+    connection.query(allTable, function(err, res) {
         console.table(res);
     });
 };
