@@ -217,8 +217,8 @@ function updateRoles() {
               name: "choice",
               type: "rawlist",
               choices: function() {
-                var choiceArray = [];
-                for (var i = 0; i < results.length; i++) {
+                let choiceArray = [];
+                for (let i = 0; i < results.length; i++) {
                   choiceArray.push(results[i].item_name);
                 }
                 return choiceArray;
@@ -238,8 +238,8 @@ function updateRoles() {
           ])
           .then(function(answer) {
             // get the information of the chosen role
-            var chosenItem;
-            for (var i = 0; i < results.length; i++) {
+            let chosenItem;
+            for (let i = 0; i < results.length; i++) {
               if (results[i].item_name === answer.choice) {
                 chosenItem = results[i];
               }
