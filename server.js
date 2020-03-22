@@ -130,7 +130,25 @@ function addEmployee() {
 };
 
 function addDepartment() {
-    //
+    inquirer.prompt([
+        {
+            name: "new-department",
+            type: "input",
+            message: "What is the new department?"
+        },
+    ])
+    .then(function(answer) {
+        connection.query(
+            "INSERT INTO department SET ?",
+            {
+              department_name: answer["new-department"],
+            },
+            function(err) {
+                if (err) throw err;
+                console.log("Your department was created successfully!");
+                start();
+            });
+    });
 };
 
 function addRole() {
