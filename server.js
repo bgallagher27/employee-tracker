@@ -59,7 +59,7 @@ function start() {
             showAll();
         }
         else if(answer.initialAction === "Update employee roles") {
-            updateEmployees();
+            updateRoles();
         }
         else{
           connection.end();
@@ -208,6 +208,59 @@ function showAll() {
     });
 };
 
-function updateEmployees() {
-    //
-};
+function updateRoles() {
+    connection.query("SELECT * FROM roles", function(err, results) {
+        if (err) throw err;
+        inquirer
+          .prompt([
+            {
+              name: "choice",
+              type: "rawlist",
+              choices: function() {
+                var choiceArray = [];
+                for (var i = 0; i < results.length; i++) {
+                  choiceArray.push(results[i].item_name);
+                }
+                return choiceArray;
+              },
+              message: "What role would you like to update?"
+            },
+            {
+              name: "updated-title",
+              type: "input",
+              message: "What is the updated role title?"
+            },
+            {
+                name: "updated-salary",
+                type: "input",
+                message: "What is the updated role salary?"
+            }
+          ])
+          .then(function(answer) {
+            // get the information of the chosen role
+            var chosenItem;
+            for (var i = 0; i < results.length; i++) {
+              if (results[i].item_name === answer.choice) {
+                chosenItem = results[i];
+              }
+            }
+            
+            connection.query(
+                "UPDATE role SET ? WHERE ?",
+                [
+                    {
+                        title: answer["updated-title"],
+                        salary: answer["updated-salary"],
+                    },
+                    {
+                        id: chosenItem.id
+                    }
+                ],
+                function(err) {
+                    if (err) throw err;
+                    console.log("Your role was updated successfully!");
+                    start();
+                });
+            })
+        })
+    };
