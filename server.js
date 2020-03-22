@@ -152,7 +152,31 @@ function addDepartment() {
 };
 
 function addRole() {
-    //
+    inquirer.prompt([
+        {
+            name: "new-title",
+            type: "input",
+            message: "What is the employee's first name?"
+        },
+        {
+            name: "new-salary",
+            type: "input",
+            message: "What is the employee's last name?"
+        },
+    ])
+    .then(function(answer) {
+        connection.query(
+            "INSERT INTO role SET ?",
+            {
+                title: answer["new-title"],
+                salary: answer["new-salary"],
+            },
+            function(err) {
+                if (err) throw err;
+                console.log("Your role was created successfully!");
+                start();
+            });
+    });
 };
 
 
