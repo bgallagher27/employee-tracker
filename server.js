@@ -185,6 +185,7 @@ function showEmployees() {
     connection.query(employeeTable, function(err, res) {
         console.table(res);
     });
+    start();
 };
 
 function showDepartments() {
@@ -192,6 +193,7 @@ function showDepartments() {
     connection.query(departmentTable, function(err, res) {
         console.table(res);
     });
+    start();
 };
 
 function showRoles() {
@@ -199,6 +201,7 @@ function showRoles() {
     connection.query(roleTable, function(err, res) {
         console.table(res);
     });
+    start();
 };
 
 function showAll() {
@@ -206,6 +209,7 @@ function showAll() {
     connection.query(allTable, function(err, res) {
         console.table(res);
     });
+    start();
 };
 
 function updateRoles() {
